@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Project - Basic Docker Demo</title>
+    <link href="{{ url_for('static', filename='styles/cw_style.css') }}" rel="stylesheet" type="text/css">
+
+</head>
+</head>
+<body>
+
+  <div><img src="https://clarusway.com/wp-content/uploads/2020/06/clarusway_logo.png" /></div>
+
+  <h2>Project : Basic Docker Demo Application</h2>
+  <p>Host ip: <b>{{ ip }}</b> </p>
+  <p>Node name: <b>{{ host_name }}</b> </p>
+  <p>Image Version: <b>{{ version }}</b> </p>
+
+
+
+  <p class="footnote"><i>This app is developed in Python by <b>{{ user }}</b> and deployed with Flask to the Docker image.</i></p>
+</body>
+</html>
