@@ -1,0 +1,13 @@
+
+ssh-keygen -m PEM -t rsa -f my_rsa_key
+
+aws ec2-instance-connect send-ssh-public-key \
+    --instance-id i-0ef9edec8a3424c0d \
+    --availability-zone us-east-1d \
+    --instance-os-user ec2-user \
+    --ssh-public-key file://my_rsa_key.pub
+
+ssh -o "IdentitiesOnly=yes" -i my_rsa_key ec2-user@ec2-52-90-33-84.compute-1.amazonaws.com
+ssh -i my_rsa_key ec2-user@ec2-52-90-33-84.compute-1.amazonaws.com
+ssh-keygen -m PEM -t rsa -f ans_rsa.pem
+ssh-copy-id -i ans_rsa.pem.pub ec2-user@ec2-52-90-33-84.compute-1.amazonaws.com

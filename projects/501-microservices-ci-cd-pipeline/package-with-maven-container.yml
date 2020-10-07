@@ -1,0 +1,2 @@
+cd /home/ec2-user/petclinic-microservices && docker run -it --rm -v "$HOME/.m2":/root/.m2 -v "$(pwd)":"$HOME" -w "$HOME" maven:3.6.3-openjdk-11 mvn clean package
+./mvnw install -PbuildDocker  -Dmaven.compile.skip=true -Dmaven.test.skip=true -Dmaven.package.skip=true

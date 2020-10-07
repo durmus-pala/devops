@@ -1,0 +1,43 @@
+pipeline {
+    agent any
+    environment {
+        ECR_REGISTRY = "046402772087.dkr.ecr.us-east-1.amazonaws.com"
+        APP_REPO_NAME = "clarusway-repo/phonebook-app"
+        APP_NAME = "phonebook"
+        AWS_REGION = "us-east-1"
+        AWS_STACK_NAME = "Call-Phonebook-App-${BUILD_NUMBER}"
+        CFN_KEYPAIR="ans.key"
+        HOME_FOLDER = "/home/ec2-user"
+        GIT_FOLDER = sh(script:'echo ${GIT_URL} | sed "s/.*\\///;s/.git$//"', returnStdout:true).trim()
+        PATH=sh(script:"echo $PATH:/usr/local/bin", returnStdout:true).trim()
+    }
+
+    stages {
+        stage('check tools') {
+            steps {
+                
+                sh 'python3 --version'
+                sh 'pip3 --version'
+                sh 'ansible --version'
+            }
+        }
+        stage('launch instance with keypair') {
+            steps {
+                
+                sh 'aws ec2 delete-key-pair --region ${AWS_REGION} --key-name ${CFN_KEYPAIR}'
+                sh 'aws ec2 create-key-pair --region ${AWS_REGION} --key-name ${CFN_KEYPAIR} --query "KeyMaterial" --output text > id_rsa'
+                sh 'pwd'
+                sh 'ls -al'
+                
+            }
+        }
+
+          stage('Create Infrastructure for the App') {
+            steps {
+                echo 'Creating Infrastructure for the App on AWS Cloud'
+                sh 'aws cloudformation create-stack --region ${AWS_REGION} --stack-name ${AWS_STACK_NAME} --capabilities CAPABILITY_IAM --template-body file://phonebook-docker-swarm-cfn-template.yml --parameters ParameterKey=KeyPairName,ParameterValue=${CFN_KEYPAIR}'
+                
+            }
+        }
+    }
+}

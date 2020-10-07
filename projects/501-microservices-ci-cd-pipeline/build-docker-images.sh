@@ -1,0 +1,10 @@
+docker build --force-rm -t "petclinic-admin-server:latest" ./spring-petclinic-admin-server
+docker build --force-rm -t "petclinic-api-gateway:latest" ./spring-petclinic-api-gateway
+docker build --force-rm -t "petclinic-config-server:latest" ./spring-petclinic-config-server
+docker build --force-rm -t "petclinic-customers-service:latest" ./spring-petclinic-customers-service
+docker build --force-rm -t "petclinic-discovery-server:latest" ./spring-petclinic-discovery-server
+docker build --force-rm -t "petclinic-hystrix-dashboard:latest" ./spring-petclinic-hystrix-dashboard
+docker build --force-rm -t "petclinic-vets-service:latest" ./spring-petclinic-vets-service
+docker build --force-rm -t "petclinic-visits-service:latest" ./spring-petclinic-visits-service
+docker build --force-rm -t "petclinic-grafana-server:latest" ./docker/grafana
+docker build --force-rm -t "petclinic-prometheus-server:latest" ./docker/prometheus
